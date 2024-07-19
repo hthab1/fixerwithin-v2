@@ -1,37 +1,47 @@
 {
   "expo": {
-    "name": "fixerwithin-v2",
-    "slug": "fixerwithin-v2",
-    "version": "1.0.0",
+    "name": "FixerWithin",
+    "slug": "fixer-with-in-customers",
+    "version": "1.2.0",
     "orientation": "portrait",
-    "icon": "./assets/icon.png",
-    "userInterfaceStyle": "light",
+    "icon": "./assets/FixerIcon.png",
     "splash": {
-      "image": "./assets/splash.png",
+      "image": "./assets/FixerSplash.png",
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
+    "updates": {
+      "fallbackToCacheTimeout": 0,
+      "url": "https://u.expo.dev/f3a73b14-d99c-4268-9e50-b76374712468"
+    },
+    "assetBundlePatterns": ["**/*"],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "customer.fixerwithin.com",
+      "buildNumber": "6",
+      "googleServicesFile": "./GoogleService-Info.plist",
+      "infoPlist": {
+        "NSCameraUsageDescription": "FixerWithin uses your camera to take  photo to setup your profile.",
+        "NSLocationWhenInUseUsageDescription": "FixerWithin uses your location to search for available fixers nearby.",
+        "NSLocationAlwaysUsageDescription": "FixerWithin uses your location to search for available fixers nearby."
+      }
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./assets/adaptive-icon.png",
-        "backgroundColor": "#ffffff"
+        "foregroundImage": "./assets/FixerAdaptiveIcon.png",
+        "backgroundColor": "#FFFFFF"
       },
-      "package": "com.touchcoreglobal.fixerwithinv2"
+      "googleServicesFile": "./google-services.json",
+      "package": "customer.fixerwithin.com",
+      "versionCode": 4
     },
-    "web": {
-      "favicon": "./assets/favicon.png"
-    },
-    "plugins": [
-      "expo-font",
-      "expo-secure-store"
-    ],
     "extra": {
       "eas": {
-        "projectId": "a6e4cb0b-70df-4caf-8ad4-910c7c8dc828"
+        "projectId": "f3a73b14-d99c-4268-9e50-b76374712468"
       }
+    },
+    "runtimeVersion": {
+      "policy": "sdkVersion"
     }
   }
 }
