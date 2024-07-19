@@ -1,0 +1,134 @@
+{
+  "project_info": {
+    "project_number": "172551337732",
+    "project_id": "fixer-with-in",
+    "storage_bucket": "fixer-with-in.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:172551337732:android:f1e6301324599558778251",
+        "android_client_info": {
+          "package_name": "com.tcore.fixer"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "172551337732-ndfmm359a51ek2g17q6ospd955a98m6c.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB04EKMcnHjTaLTDtnA9YWeOO1SrAv4R2k"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "172551337732-ndfmm359a51ek2g17q6ospd955a98m6c.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "172551337732-5tdas71e1kp6pbfpv0h8fjk3tbcoulma.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.tcore.fixer"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:172551337732:android:91c3efbd47ee34ed778251",
+        "android_client_info": {
+          "package_name": "customer.fixerwithin.com"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "172551337732-9kchb1ivjjpfvf3jkqbsi6c2td4vsfop.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "customer.fixerwithin.com",
+            "certificate_hash": "537cc4869e2fab7638dd8af847d22631cf3ecc04"
+          }
+        },
+        {
+          "client_id": "172551337732-ndfmm359a51ek2g17q6ospd955a98m6c.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB04EKMcnHjTaLTDtnA9YWeOO1SrAv4R2k"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "172551337732-ndfmm359a51ek2g17q6ospd955a98m6c.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "172551337732-5tdas71e1kp6pbfpv0h8fjk3tbcoulma.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.tcore.fixer"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:172551337732:android:fc1e68f3108a1e66778251",
+        "android_client_info": {
+          "package_name": "handyman.fixerwithin.com"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "172551337732-2uekr6jls53emusvrdrsthkgc5tsbesq.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "handyman.fixerwithin.com",
+            "certificate_hash": "537cc4869e2fab7638dd8af847d22631cf3ecc04"
+          }
+        },
+        {
+          "client_id": "172551337732-ndfmm359a51ek2g17q6ospd955a98m6c.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB04EKMcnHjTaLTDtnA9YWeOO1SrAv4R2k"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "172551337732-ndfmm359a51ek2g17q6ospd955a98m6c.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "172551337732-5tdas71e1kp6pbfpv0h8fjk3tbcoulma.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.tcore.fixer"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

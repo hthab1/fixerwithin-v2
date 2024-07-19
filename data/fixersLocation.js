@@ -1,0 +1,42 @@
+export const fixersLocation = [
+  {
+    id: 1,
+    name: "Theodore",
+    distance: "19 Miles from you",
+    image: require("../assets/dashboard/JohnDoe.png"),
+    latitude: 51.5072,
+    longitude: 0.1276,
+  },
+  {
+    id: 2,
+    name: "Theodore",
+    distance: "19 Miles from you",
+    image: require("../assets/dashboard/JohnDoe.png"),
+    latitude: 51.3072,
+    longitude: 0.2276,
+  },
+  {
+    id: 3,
+    name: "Theodore",
+    distance: "19 Miles from you",
+    image: require("../assets/dashboard/JohnDoe.png"),
+    latitude: 51.4572,
+    longitude: 0.4276,
+  },
+  {
+    id: 4,
+    name: "Theodore",
+    distance: "19 Miles from you",
+    image: require("../assets/dashboard/JohnDoe.png"),
+    latitude: 51.6072,
+    longitude: 0.4276,
+  },
+  {
+    id: 5,
+    name: "Theodore",
+    distance: "19 Miles from you",
+    image: require("../assets/dashboard/JohnDoe.png"),
+    latitude: 51.2072,
+    longitude: 0.0276,
+  },
+];
