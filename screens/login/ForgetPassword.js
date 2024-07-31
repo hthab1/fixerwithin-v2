@@ -45,7 +45,7 @@ function ForgetPassword(props) {
       setSent(true);
     },
     onError({ graphQLErrors }) {
-      console.log(graphQLErrors);
+      console.log("Forget password errors: ", graphQLErrors);
     },
     variables: {
       forgotPasswordInput: {

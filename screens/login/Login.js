@@ -205,12 +205,16 @@ function Login(props) {
     },
     onError({ graphQLErrors }) {
       console.log(graphQLErrors);
-      if (graphQLErrors.find((err) => err.message === "Invalid credentials")) {
+      if (
+        graphQLErrors.find(
+          (err) => err.message === "Error: Invalid Credentials"
+        )
+      ) {
         setInvalid(true);
       }
       if (
         graphQLErrors.find((err) =>
-          err.message?.includes("Invalid credentials")
+          err.message?.includes("Error: Invalid Credentials")
         )
       ) {
         setInvalid(true);
