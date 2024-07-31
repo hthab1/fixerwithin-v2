@@ -41,7 +41,7 @@ function ForgetPassword(props) {
   const [dataLoaded, setDataLoaded] = useState(false);
   const [forget, { loading, error, data }] = useMutation(FORGET, {
     update(proxy, { data: { forgetPassword: userData } }) {
-      console.log(userData);
+      // console.log(userData);
       setSent(true);
     },
     onError({ graphQLErrors }) {
@@ -122,7 +122,7 @@ function ForgetPassword(props) {
               </>
             )}
           </Formik>
-          {error.message?.includes("No User Found") && (
+          {error?.message?.includes("No User Found") && (
             <ErrorMessage textAlign="center">No User Found!</ErrorMessage>
           )}
           {error?.networkError && (
