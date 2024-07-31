@@ -203,7 +203,7 @@ function DrawerNavigate({ number, setNumber }) {
       <View style={styles.version}>
         <View style={styles.versionContainer}>
           <Text style={styles.versionText}>Fixer Within</Text>
-          <Text style={styles.versionNumber}>V 1.2.0</Text>
+          <Text style={styles.versionNumber}>V 1.3.0</Text>
         </View>
       </View>
     </View>
