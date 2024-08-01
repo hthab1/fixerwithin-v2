@@ -34,7 +34,7 @@ function ResetPassword(props) {
   const [hidden, setHidden] = useState(false);
   const [hide, setHide] = useState(false);
   const [success, setSuccuess] = useState(false);
-  const [errors, setErrors] = useState([]);
+  const [requestErrors, setRequestErrors] = useState([]);
   const user = useContext(SignupContext);
   const [reset, { loading, error, data }] = useMutation(RESET, {
     update(proxy, { data: { resetPassword: userData } }) {
@@ -44,24 +44,25 @@ function ResetPassword(props) {
       }, 2000);
     },
     onError({ graphQLErrors }) {
-      setErrors(graphQLErrors);
+      setRequestErrors(graphQLErrors);
     },
     variables: {
       resetPasswordInput: {
         newPassword: values?.password,
         _id: user?.resetId,
+        otp: values?.otp,
       },
     },
   });
 
   const handleReset = () => {
     reset();
-    console.log(data);
+    console.log("data");
     Keyboard.dismiss();
   };
 
   const validationSchema = Yup.object().shape({
-    opt: Yup.string().required().min(6).label("OTP"),
+    otp: Yup.string().required().min(6).label("OTP"),
     password: Yup.string().required().min(6).label("Password"),
     confirm: Yup.string()
       .required()
@@ -71,13 +72,14 @@ function ResetPassword(props) {
 
   useEffect(() => {
     if (loading) {
-      setErrors([]);
+      setRequestErrors([]);
     }
   }, [loading]);
 
   useEffect(() => {
-    setErrors([]);
+    setRequestErrors([]);
   }, [email]);
+
   console.log("Reset data: ", data);
 
   return (
@@ -178,7 +180,7 @@ function ResetPassword(props) {
           {error?.networkError && (
             <ErrorMessage textAlign="center">Network Error!</ErrorMessage>
           )}
-          {errors?.map((err, index) => (
+          {requestErrors?.map((err, index) => (
             <ErrorMessage key={index} textAlign="center">
               {err?.message}
             </ErrorMessage>
