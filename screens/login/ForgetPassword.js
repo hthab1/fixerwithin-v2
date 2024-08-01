@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import {
   View,
   StyleSheet,
@@ -24,14 +24,7 @@ import { FORGET } from "../../components/GraphQL/Mutations";
 import ErrorMessage from "../../components/sign/ErrorMessage";
 import { Formik } from "formik";
 import * as Yup from "yup";
-
-const fetchFonts = async () => {
-  await Font.loadAsync({
-    Sen_400Regular: require("../../assets/fonts/Sen-Regular.ttf"),
-    Sen_700Bold: require("../../assets/fonts/Sen-Bold.ttf"),
-    Sen_800ExtraBold: require("../../assets/fonts/Sen-ExtraBold.ttf"),
-  });
-};
+import SignupContext from "../../context/SignupContext";
 
 function ForgetPassword(props) {
   const navigation = useNavigation();
@@ -39,13 +32,18 @@ function ForgetPassword(props) {
   const [value, setValue] = useState();
   const [sent, setSent] = useState(false);
   const [dataLoaded, setDataLoaded] = useState(false);
+  const [errors, setErrors] = useState([]);
+  const user = useContext(SignupContext);
   const [forget, { loading, error, data }] = useMutation(FORGET, {
-    update(proxy, { data: { forgetPassword: userData } }) {
-      // console.log(userData);
-      setSent(true);
+    update(proxy, { data: { forgotPassword: userData } }) {
+      console.log("ID: ", userData?._id);
+      user.setResetId(userData?._id);
+      if (userData?._id) {
+        navigation.navigate("reset");
+      }
     },
     onError({ graphQLErrors }) {
-      console.log("Forget password errors: ", graphQLErrors);
+      setErrors(graphQLErrors);
     },
     variables: {
       forgotPasswordInput: {
@@ -63,6 +61,16 @@ function ForgetPassword(props) {
   const validationSchema = Yup.object().shape({
     email: Yup.string().required().email().label("Email"),
   });
+
+  useEffect(() => {
+    if (loading) {
+      setErrors([]);
+    }
+  }, [loading]);
+
+  useEffect(() => {
+    setErrors([]);
+  }, [email]);
 
   return (
     <KeyboardAvoidingView behavior={Platform.OS === "ios" && "padding"}>
@@ -95,7 +103,7 @@ function ForgetPassword(props) {
             onSubmit={handleForget}
             validationSchema={validationSchema}
           >
-            {({ handleChange, handleSubmit, values, errors }) => (
+            {({ handleChange, handleSubmit, values, errors, touched }) => (
               <>
                 <View style={styles.inputContainer}>
                   <SignInput
@@ -109,7 +117,9 @@ function ForgetPassword(props) {
                     opacity={values.email !== "" && !errors.email ? 1 : 0.4}
                   />
                 </View>
-                {errors.email && <ErrorMessage>{errors.email}</ErrorMessage>}
+                {errors.email && touched?.email && (
+                  <ErrorMessage>{errors.email}</ErrorMessage>
+                )}
                 <View style={styles.button}>
                   <SignButton
                     name={loading ? "Loading..." : "Continue"}
@@ -122,17 +132,23 @@ function ForgetPassword(props) {
               </>
             )}
           </Formik>
-          {error?.message?.includes("No User Found") && (
+          {/* {error?.message?.includes("No User Found") && (
             <ErrorMessage textAlign="center">No User Found!</ErrorMessage>
-          )}
+          )} */}
           {error?.networkError && (
             <ErrorMessage textAlign="center">Network Error!</ErrorMessage>
           )}
-          {sent && (
+          {errors?.map((err, index) => (
+            <ErrorMessage key={index} textAlign="center">
+              {err?.message}
+            </ErrorMessage>
+          ))}
+
+          {/* {sent && (
             <ErrorMessage Color={color.green} textAlign="center">
               OTP sent successfully
             </ErrorMessage>
-          )}
+          )} */}
           <View style={styles.account}>
             <Text
               style={{

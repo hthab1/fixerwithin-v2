@@ -85,6 +85,15 @@ export const FORGET = gql`
   }
 `;
 
+export const RESET = gql`
+  mutation resetPassword($resetPasswordInput: ResetPasswordInput) {
+    resetPassword(ResetPasswordInput: $resetPasswordInput) {
+      _id
+      message
+    }
+  }
+`;
+
 export const DELETE = gql`
   mutation DeleteAccount {
     deleteAccount {

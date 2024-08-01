@@ -15,6 +15,7 @@ import VerifyOTP from "../screens/signup/VerifyOTP";
 import GetStarted from "../screens/splash/GetStarted";
 import SplashNavigate from "../screens/splash/SplashNavigate";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import ResetPassword from "../screens/login/ResetPassword";
 
 const Stack = createStackNavigator();
 
@@ -74,6 +75,7 @@ function StartNavigation(props) {
       {!value && <Stack.Screen name="start" component={GetStarted} />}
       <Stack.Screen name="login" component={Login} />
       <Stack.Screen name="forget" component={ForgetPassword} />
+      <Stack.Screen name="reset" component={ResetPassword} />
       <Stack.Screen name="signup" component={Signup} />
       <Stack.Screen name="phone" component={PhoneNumber} />
       <Stack.Screen name="verify" component={VerifyOTP} />

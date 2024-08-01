@@ -6,6 +6,7 @@ import {
   Text,
   TouchableOpacity,
   ScrollView,
+  Keyboard,
   KeyboardAvoidingView,
   Platform,
 } from "react-native";
@@ -16,46 +17,68 @@ import SignInput from "../../components/sign/SignInput";
 import SignTitle from "../../components/sign/SignTitle";
 import SignButton from "../../components/sign/SignButton";
 import SignLink from "../../components/sign/SignLink";
+("");
 import { useNavigation } from "@react-navigation/native";
-import SignupContext from "../../context/SignupContext";
+import { useMutation } from "@apollo/client";
+import { FORGET, RESET } from "../../components/GraphQL/Mutations";
+import ErrorMessage from "../../components/sign/ErrorMessage";
 import { Formik } from "formik";
 import * as Yup from "yup";
-import ErrorMessage from "../../components/sign/ErrorMessage";
-import { useMutation, useQuery } from "@apollo/client";
-import { LOAD_FIXERS } from "../../components/GraphQL/Queries";
-import GetFixers from "../../components/backendCall/GetFixers";
-import { SIGNUP } from "../../components/GraphQL/Mutations";
+import SignupContext from "../../context/SignupContext";
+import OTPInput from "../../components/common/OTPInput";
 
-function Signup(props) {
+function ResetPassword(props) {
   const navigation = useNavigation();
-  // const [email, setEmail] = useState("");
-  // const [name, setName] = useState("");
-  // const [password, setPassword] = useState("");
-  // const [confirmPassword, setConfirmpassword] = useState("");
+  const [email, setEmail] = useState("");
   const [values, setValues] = useState({});
   const [hidden, setHidden] = useState(false);
   const [hide, setHide] = useState(false);
-  const [dataLoaded, setDataLoaded] = useState(false);
-  const start = useContext(SignupContext);
+  const [success, setSuccuess] = useState(false);
+  const [errors, setErrors] = useState([]);
   const user = useContext(SignupContext);
+  const [reset, { loading, error, data }] = useMutation(RESET, {
+    update(proxy, { data: { resetPassword: userData } }) {
+      setSuccuess(true);
+      setTimeout(() => {
+        navigation.navigate("login");
+      }, 2000);
+    },
+    onError({ graphQLErrors }) {
+      setErrors(graphQLErrors);
+    },
+    variables: {
+      resetPasswordInput: {
+        newPassword: values?.password,
+        _id: user?.resetId,
+      },
+    },
+  });
 
-  const handleSignup = () => {
-    navigation.navigate("phone");
-    start.setBegun(true);
-    user.setUserName(values.name);
-    user.setUserEmail(values.email);
-    user.setPassword(values.password);
+  const handleReset = () => {
+    reset();
+    console.log(data);
+    Keyboard.dismiss();
   };
 
   const validationSchema = Yup.object().shape({
-    name: Yup.string().required().label("Name"),
-    email: Yup.string().required().email().label("Email"),
+    opt: Yup.string().required().min(6).label("OTP"),
     password: Yup.string().required().min(6).label("Password"),
     confirm: Yup.string()
       .required()
       .oneOf([Yup.ref("password"), null], "Password must match")
       .label("Password"),
   });
+
+  useEffect(() => {
+    if (loading) {
+      setErrors([]);
+    }
+  }, [loading]);
+
+  useEffect(() => {
+    setErrors([]);
+  }, [email]);
+  console.log("Reset data: ", data);
 
   return (
     <KeyboardAvoidingView behavior={Platform.OS === "ios" && "padding"}>
@@ -65,51 +88,46 @@ function Signup(props) {
           source={require("../../assets/sign/signVector.png")}
         />
         <View style={styles.logoContainer}>
-          <View style={styles.signTitle}>
-            <SignTitle bold fontSize={30}>
-              Sign Up
-            </SignTitle>
-            <SignTitle regular fontSize={16} paddingTop={10}>
-              Please sign in to get started
-            </SignTitle>
-          </View>
+          <Image
+            style={styles.logo}
+            source={require("../../assets/splash/Fixer.png")}
+          />
           <View style={styles.back}>
             <SignBack onPress={() => navigation.goBack()} />
           </View>
         </View>
-        <ScrollView keyboardShouldPersistTaps="always" style={styles.content}>
+        <ScrollView keyboardShouldPersistTaps="never" style={styles.content}>
+          <View style={styles.title}>
+            <SignTitle>Reset Password</SignTitle>
+          </View>
+          <View style={styles.description}>
+            <SignDescription regular>Choose a new password</SignDescription>
+          </View>
           <Formik
-            initialValues={{ name: "", email: "", password: "", confirm: "" }}
-            onSubmit={handleSignup}
+            initialValues={{
+              otp: "",
+              password: "",
+              confirm: "",
+            }}
+            onSubmit={handleReset}
             validationSchema={validationSchema}
           >
             {({ handleChange, handleSubmit, values, errors, touched }) => {
               return (
                 <>
                   <View style={styles.inputContainer}>
-                    <SignInput
-                      text="Name"
-                      placeholder="John Doe"
-                      onChangeText={handleChange("name")}
+                    <OTPInput
+                      numberOfInputs={6}
+                      //   onOtpFilled={(otp) => handleVerify(otp)}
+                      setOtp={handleChange("otp")}
                     />
                   </View>
-                  {errors.name && touched.name && (
-                    <ErrorMessage>{errors.name}</ErrorMessage>
+                  {errors.otp && touched.otp && (
+                    <ErrorMessage>{errors.otp}</ErrorMessage>
                   )}
                   <View style={styles.inputContainer}>
                     <SignInput
-                      text="Email"
-                      placeholder="example@gmail.com"
-                      onChangeText={handleChange("email")}
-                      keyboardType="email-address"
-                    />
-                  </View>
-                  {errors.email && touched.email && (
-                    <ErrorMessage>{errors.email}</ErrorMessage>
-                  )}
-                  <View style={styles.inputContainer}>
-                    <SignInput
-                      text="Password"
+                      text="New password"
                       placeholder={!hidden ? "*********" : "Enter password"}
                       onChangeText={handleChange("password")}
                       Value={values.password}
@@ -143,7 +161,7 @@ function Signup(props) {
                   )}
                   <View style={styles.button}>
                     <SignButton
-                      name="SIGN UP"
+                      name={loading ? "Loading..." : "Reset"}
                       onPress={() => {
                         setValues(values);
                         handleSubmit();
@@ -154,6 +172,49 @@ function Signup(props) {
               );
             }}
           </Formik>
+          {/* {error?.message?.includes("No User Found") && (
+            <ErrorMessage textAlign="center">No User Found!</ErrorMessage>
+          )} */}
+          {error?.networkError && (
+            <ErrorMessage textAlign="center">Network Error!</ErrorMessage>
+          )}
+          {errors?.map((err, index) => (
+            <ErrorMessage key={index} textAlign="center">
+              {err?.message}
+            </ErrorMessage>
+          ))}
+
+          {success && (
+            <ErrorMessage Color={color.green} textAlign="center">
+              Password changed successfully
+            </ErrorMessage>
+          )}
+          {/* <View style={styles.account}>
+            <Text
+              style={{
+                fontFamily: "Sen_700Bold",
+                fontSize: 14,
+                color: color.grayMiddle,
+              }}
+            >
+              Don't have an account?
+            </Text>
+            <Text> </Text>
+            <TouchableOpacity onPress={() => navigation.navigate("signup")}>
+              <Text
+                style={{
+                  fontFamily: "Sen_700Bold",
+                  fontSize: 14,
+                  color: color.darkerblue,
+                }}
+              >
+                Sign up
+              </Text>
+            </TouchableOpacity>
+          </View>
+          <View style={styles.forget}>
+            <SignLink onPress={() => navigation.goBack()}>Sign In</SignLink>
+          </View> */}
         </ScrollView>
       </View>
     </KeyboardAvoidingView>
@@ -177,11 +238,6 @@ const styles = StyleSheet.create({
     height: "35%",
     alignItems: "center",
     justifyContent: "center",
-  },
-  signTitle: {
-    alignItems: "center",
-    justifyContent: "center",
-    marginTop: "17%",
   },
   logo: {
     marginTop: "17%",
@@ -208,6 +264,7 @@ const styles = StyleSheet.create({
   },
   inputContainer: {
     marginTop: 20,
+    alignItems: "center",
   },
   button: {
     paddingVertical: 20,
@@ -223,4 +280,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default Signup;
+export default ResetPassword;

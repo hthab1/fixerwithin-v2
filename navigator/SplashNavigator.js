@@ -36,6 +36,7 @@ function SplashNavigator(props) {
   const [userName, setUserName] = useState("");
   const [userPhoneNumber, setUserPhoneNumber] = useState("");
   const [userEmail, setUserEmail] = useState("");
+  const [resetId, setResetId] = useState("");
   const [latitude, setLatitude] = useState(51.5072);
   const [longitude, setLongitude] = useState(0.1276);
   const [verificationCode, setVerificationCode] = useState();
@@ -249,6 +250,8 @@ function SplashNavigator(props) {
         setUserPhoneNumber,
         userEmail,
         setUserEmail,
+        resetId,
+        setResetId,
         latitude,
         setLatitude,
         longitude,
