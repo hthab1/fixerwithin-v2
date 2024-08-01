@@ -38,6 +38,7 @@ function ForgetPassword(props) {
     update(proxy, { data: { forgotPassword: userData } }) {
       console.log("ID: ", userData?._id);
       user.setResetId(userData?._id);
+      user.setUserEmail(email);
       if (userData?._id) {
         navigation.navigate("reset");
       }

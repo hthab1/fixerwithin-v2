@@ -16,11 +16,9 @@ import SignDescription from "../../components/sign/SignDescription";
 import SignInput from "../../components/sign/SignInput";
 import SignTitle from "../../components/sign/SignTitle";
 import SignButton from "../../components/sign/SignButton";
-import SignLink from "../../components/sign/SignLink";
-("");
 import { useNavigation } from "@react-navigation/native";
 import { useMutation } from "@apollo/client";
-import { FORGET, RESET } from "../../components/GraphQL/Mutations";
+import { RESET } from "../../components/GraphQL/Mutations";
 import ErrorMessage from "../../components/sign/ErrorMessage";
 import { Formik } from "formik";
 import * as Yup from "yup";
@@ -80,8 +78,6 @@ function ResetPassword(props) {
     setRequestErrors([]);
   }, [email]);
 
-  console.log("Reset data: ", data);
-
   return (
     <KeyboardAvoidingView behavior={Platform.OS === "ios" && "padding"}>
       <View style={styles.container}>
@@ -103,7 +99,10 @@ function ResetPassword(props) {
             <SignTitle>Reset Password</SignTitle>
           </View>
           <View style={styles.description}>
-            <SignDescription regular>Choose a new password</SignDescription>
+            <SignDescription regular>
+              Please enter the OTP code just sent to{" "}
+              <Text style={styles.line2number}>{user?.userEmail}</Text>
+            </SignDescription>
           </View>
           <Formik
             initialValues={{
@@ -279,6 +278,11 @@ const styles = StyleSheet.create({
   forget: {
     paddingTop: 20,
     alignItems: "center",
+  },
+  line2number: {
+    fontFamily: "Sen_700Bold",
+    fontSize: 16,
+    color: color.darkerblue,
   },
 });
 

@@ -22,15 +22,6 @@ import OTPInput from "../../components/common/OTPInput";
 
 function VerifyOTP(props) {
   const navigation = useNavigation();
-  const [dataLoaded, setDataLoaded] = useState(false);
-  const [phoneNumber, setPhoneNumber] = useState("");
-  const [pin1, setPin1] = useState("");
-  const [pin2, setPin2] = useState("");
-  const [pin3, setPin3] = useState("");
-  const [pin4, setPin4] = useState("");
-  const [pin5, setPin5] = useState("");
-  const [pin6, setPin6] = useState("");
-  const [focused, setFocused] = useState(0);
   const [timerMinute, setTimerMinute] = useState(0);
   const [timerSecond, setTimerSecond] = useState(0);
   const [timerVisibility, setTimerVisibility] = useState(false);
@@ -38,13 +29,6 @@ function VerifyOTP(props) {
   const [outOfChance, setOutOfChance] = useState(false);
   const user = useContext(SignupContext);
   const [pin, setPin] = useState("");
-
-  const pin1ref = useRef();
-  const pin2ref = useRef();
-  const pin3ref = useRef();
-  const pin4ref = useRef();
-  const pin5ref = useRef();
-  const pin6ref = useRef();
 
   // const pin = pin1 + pin2 + pin3 + pin4 + pin5 + pin6;
 
