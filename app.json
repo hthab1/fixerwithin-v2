@@ -32,8 +32,8 @@
         "backgroundColor": "#FFFFFF"
       },
       "googleServicesFile": "./google-services.json",
-      "package": "customer.fixerwithin.com",
-      "versionCode": 5
+      "package": "customer.fixer.within",
+      "versionCode": 6
     },
     "extra": {
       "eas": {
