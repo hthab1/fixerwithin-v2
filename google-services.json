@@ -9,7 +9,7 @@
       "client_info": {
         "mobilesdk_app_id": "1:172551337732:android:f1e6301324599558778251",
         "android_client_info": {
-          "package_name": "com.tcore.fixer"
+          "package_name": "customer.fixer.within"
         }
       },
       "oauth_client": [
